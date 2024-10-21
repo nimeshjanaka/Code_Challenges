@@ -7,6 +7,14 @@
   </head>
   <body>
     <button class="again">Again</button>
+
+    <textarea
+      id="inputText"
+      rows="10"
+      cols="30"
+      placeholder="Enter underscore_case variables"
+    ></textarea>
+    <button id="convertButton">Convert to camelCase</button>
     <script>
       let MarksHeight = 1.69;
       let Marksweight = 78;
@@ -374,6 +382,199 @@
       });
 
       //   Coding Challenge #4
+
+      function toCamelCase(str) {
+        const words = str.toLowerCase().trim().split("_");
+        const camelCaseWord =
+          words[0] +
+          words
+            .slice(1)
+            .map((word) => word[0].toUpperCase() + word.slice(1))
+            .join("");
+        return camelCaseWord;
+      }
+
+      document.querySelector("button").addEventListener("click", function () {
+        const inputText = document.querySelector("textarea").value;
+        const lines = inputText.split("\n");
+
+        lines.forEach((line, index) => {
+          const camelCase = toCamelCase(line);
+          const checks = "✅".repeat(index + 1);
+          console.log(`${camelCase} ${checks}`);
+        });
+      });
+
+      // A Closer Look at Functions
+      // Coding Challenge #1
+
+      // const poll = {
+      //   question: "What is your favourite programming language?",
+      //   options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+      //   answers: new Array(4).fill(0),
+
+      //   // 1.  register  new answer
+      //   registerNewAnswer() {
+      //     const input = prompt(
+      //       `${this.question}\n${this.options.join(
+      //         "\n"
+      //       )}\n(Write option number)`
+      //     );
+
+      //     const answer = Number(input);
+
+      //     if (!isNaN(answer) && answer >= 0 && answer < this.answers.length) {
+      //       this.answers[answer]++;
+
+      //       this.displayResults("string");
+      //       this.displayResults("array");
+      //     } else {
+      //       alert("Invalid input. Please enter a valid option number.");
+      //     }
+      //   },
+
+      //   displayResults(type = "array") {
+      //     if (type === "string") {
+      //       console.log(`Poll results are ${this.answers.join(", ")}`);
+      //     } else if (type === "array") {
+      //       console.log(this.answers);
+      //     }
+      //   },
+      // };
+
+      // // 2. registerNewAnswer
+      // document
+      //   .querySelector(".poll-answer")
+      //   .addEventListener("click", function () {
+      //     poll.registerNewAnswer();
+      //   });
+
+      // // 5. Display test data results
+      // const displayTestResults = function (answersArray, type) {
+      //   if (type === "string") {
+      //     console.log(`Poll results are ${answersArray.join(", ")}`);
+      //   } else if (type === "array") {
+      //     console.log(answersArray);
+      //   }
+      // };
+
+      // const data1 = [5, 2, 3];
+      // const data2 = [1, 5, 3, 9, 6, 1];
+
+      // displayTestResults(data1, "array");
+      // displayTestResults(data1, "string");
+      // displayTestResults(data2, "array");
+      // displayTestResults(data2, "string");
+
+      // // Coding Challenge #2
+
+      // (function () {
+      //   const header = document.querySelector("h1");
+      //   header.style.color = "red";
+
+      //   document.body.addEventListener("click", function () {
+      //     header.style.color = "blue";
+      //   });
+      // })();
+
+      // Working With Arrays
+      // Coding Challenge #1
+
+      const checkdogs = function (dogsJulia, dogsKate) {
+        const dogsJuliaCorrected = dogsJulia.slice();
+        dogsJuliaCorrected.splice(0, 1);
+        dogsJuliaCorrected.splice(-2);
+        console.log(dogsJuliaCorrected);
+        const dogs = dogsJuliaCorrected.concat(dogsKate);
+        console.log(dogs);
+
+        dogs.forEach(function (dog, i) {
+          if (dog >= 3) {
+            console.log(
+              `Dog Number ${i + 1} is  an adult, and is $(dog) years old`
+            );
+          } else {
+            console.log(`Dog number ${i + 1} is still a puppy`);
+          }
+        });
+      };
+      checkdogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+
+      // Coding Challenge #2
+
+      const calcAverageHumanAge = function (ages) {
+        const humanAges = ages.map((age) =>
+          age <= 2 ? 2 * age : 16 + age * 4
+        );
+        const adults = humanAges.filter((age) => age >= 18);
+        console.log(adults);
+
+        console.log(humanAges);
+
+        const average =
+          adults.reduce((acc, age) => acc + age, 0) / adults.length;
+        return average;
+      };
+      const avg1 = calcAverageHumanAge([3, 5, 2, 12, 7]);
+      const avg2 = calcAverageHumanAge([4, 1, 15, 8, 3]);
+      console.log(avg1, avg2);
+
+      // Coding Challenge #4
+
+      const dogs = [
+        { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+        { weight: 8, curFood: 200, owners: ["Matilda"] },
+        { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+        { weight: 32, curFood: 340, owners: ["Michael"] },
+      ];
+
+      dogs.forEach(
+        (dog) => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28))
+      );
+      console.log(dogs);
+
+      // 2
+      const dogsarah = dogs.find((dog) => dog.owners.includes("Sarah"));
+      console.log(dogsarah);
+      console.log(
+        `Sarah's dog is eating too ${
+          dogsarah.curFood > dogsarah.recFood ? "much" : "little"
+        }`
+      );
+
+      //3
+
+      const ownersEatTooMuch = dogs
+        .filter((dog) => dog.curFood > dog.recFood)
+        .flatMap((dog) => dog.owners);
+      console.log(ownersEatTooMuch);
+
+      const ownersEatTooLittle = dogs
+        .filter((dog) => dog.curFood > dog.recFood)
+        .flatMap((dog) => dog.owners);
+      console.log(ownersEatTooLittle);
+
+      // 4
+
+      console.log(`${ownersEatTooMuch.join("and")}'s dogs eat too much`);
+      console.log(`${ownersEatTooLittle.join("and")}'s dogs eat too little`);
+
+      // 5
+      console.log(dogs.some((dog) => dog.curFood === dog.recFood));
+
+      // 6
+
+      const checkEatingOkay = (dog) =>
+        dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+      console.log(dogs.some(checkEatingOkay));
+
+      // 7
+
+      console.log(dogs.filter(checkEatingOkay));
+
+      // 8
+      const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+      console.log(dogsSorted);
     </script>
   </body>
 </html>
